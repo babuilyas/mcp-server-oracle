@@ -1,0 +1,13 @@
+{
+  "name": "mcp-server-oracle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "inspector": "npx @modelcontextprotocol/inspector uv run main.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.5"
+}
