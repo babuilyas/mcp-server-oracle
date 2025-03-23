@@ -1,7 +1,10 @@
 [project]
 name = "mcp-server-oracle"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "Model Context Protocol server to access oracle database"
+authors = [
+    { name = "hdcola", email = "gh@hdcola.org" }
+]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -9,3 +12,10 @@ dependencies = [
     "oracledb>=3.0.0",
     "python-dotenv>=1.0.1",
 ]
+
+[project.scripts]
+server = "mcp_server_oracle:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
