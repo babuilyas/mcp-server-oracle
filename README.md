@@ -22,7 +22,7 @@ To try this in Claude Desktop app, add this to your claude config files:
       "command": "uvx",
       "args": [
         "mcp-server-oracle"
-      ]，
+      ],
       "env": {
         "ORACLE_CONNECTION_STRING": "username/password@hostname:password/service_name"
       }
