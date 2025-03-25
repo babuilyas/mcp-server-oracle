@@ -12,7 +12,7 @@ To try this in Claude Desktop app, add this to your claude config files:
 ```json
 {
   "mcpServers": {
-    "docker-mcp": {
+    "mcp-server-oracle": {
       "command": "uvx",
       "args": [
         "mcp-server-oracle"
@@ -40,7 +40,7 @@ Add the server configuration to your Claude Desktop config file:
 
 ## Contributing
 
-1. Fork the repository from [docker-mcp](https://github.com/QuantGeekDev/docker-mcp)
+1. Fork the repository from [mcp-server-oracle](https://github.com/hdcola/mcp-server-oracle)
 2. Create your feature branch
 3. Commit your changes
 4. Push to the branch
