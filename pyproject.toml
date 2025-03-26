@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 mcp-server-oracle = "mcp_server_oracle:main"
+dev = "mcp_server_oracle:dev"
 
 [build-system]
 requires = ["hatchling"]
