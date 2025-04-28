@@ -37,13 +37,22 @@ async def describe_table(table_name: str) -> str:
 
 
 @mcp.tool()
-async def reqd_query(query: str) -> str:
+async def read_query(query: str) -> str:
     """Execute SELECT queries to read data from the oracle database
 
     Args:
         query (string): The SELECT query to execute
     """
     return await oracle_tools.read_query(query)
+
+@mcp.tool()
+async def exec_dml_sql(execsql: str) -> str:
+    """Execute insert/update/delete/truncate to the oracle database
+
+    Args:
+        query (string): The sql to execute
+    """
+    return await oracle_tools.exec_dml_sql(execsql)
 
 
 def main() -> None:

@@ -24,7 +24,7 @@ To try this in Claude Desktop app, add this to your claude config files:
         "mcp-server-oracle"
       ],
       "env": {
-        "ORACLE_CONNECTION_STRING": "username/password@hostname:password/service_name"
+        "ORACLE_CONNECTION_STRING": "username/password@hostname:port/service_name"
       }
     }
   }

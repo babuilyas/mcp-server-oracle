@@ -3,6 +3,8 @@ import asyncio
 
 connection_string = ""
 
+# 初始化为 Thin 模式
+oracledb.init_oracle_client(lib_dir=None)
 
 async def list_tables() -> list:
     tables = []
@@ -134,6 +136,31 @@ async def read_query(query: str) -> str:
         print('Error occurred:', e)
         return str(e)
 
+
+async def exec_dml_sql(execsql: str) -> str:
+    try:
+        # 检查SQL语句是否包含DML关键字
+        sql_upper = execsql.upper()
+        if not any(keyword in sql_upper for keyword in ['INSERT', 'DELETE', 'TRUNCATE', 'UPDATE']):
+            return "Error: Only INSERT, DELETE, TRUNCATE or UPDATE statements are supported."
+        
+        # Run database operations in a separate thread
+        def db_operation(query):
+            with oracledb.connect(connection_string) as conn:
+                cursor = conn.cursor()
+                # 执行DML语句
+                cursor.execute(query)
+                # 获取影响的行数
+                rows_affected = cursor.rowcount
+                # 提交事务
+                conn.commit()
+                # 返回执行结果
+                return f"执行成功: 影响了 {rows_affected} 行数据"
+
+        return await asyncio.to_thread(db_operation, sql_upper)
+    except oracledb.DatabaseError as e:
+        print('Error occurred:', e)
+        return str(e)
 
 if __name__ == "__main__":
     # Create and run the async event loop

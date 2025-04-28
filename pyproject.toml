@@ -1,6 +1,6 @@
 [project]
 name = "mcp-server-oracle"
-version = "1.0.1"
+version = "1.0.2"
 description = "Model Context Protocol server to access oracle database"
 authors = [
     { name = "hdcola", email = "gh@hdcola.org" }
