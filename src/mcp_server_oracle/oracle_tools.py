@@ -157,7 +157,54 @@ async def exec_dml_sql(execsql: str) -> str:
                 # 返回执行结果
                 return f"执行成功: 影响了 {rows_affected} 行数据"
 
-        return await asyncio.to_thread(db_operation, sql_upper)
+        return await asyncio.to_thread(db_operation, execsql)
+    except oracledb.DatabaseError as e:
+        print('Error occurred:', e)
+        return str(e)
+
+async def exec_ddl_sql(execsql: str) -> str:
+    try:
+        # 检查SQL语句是否包含ddl关键字
+        sql_upper = execsql.upper()
+        if not any(keyword in sql_upper for keyword in ['CREATE', 'ALTER', 'DROP']):
+            return "Error: Only CREATE, ALTER, DROP statements are supported."
+        
+        def db_operation(query):
+            with oracledb.connect(connection_string) as conn:
+                cursor = conn.cursor()
+                cursor.execute(query)
+                return "DDL语句执行成功"
+
+        return await asyncio.to_thread(db_operation, execsql)
+    except oracledb.DatabaseError as e:
+        print('Error occurred:', e)
+        return str(e)
+
+async def exec_pro_sql(execsql: str) -> str:
+    try:
+        # Run database operations in a separate thread
+        def db_operation(query):
+            with oracledb.connect(connection_string) as conn:
+                cursor = conn.cursor()
+                # 执行PL/SQL代码块
+                cursor.execute(query)
+                # 如果有输出参数或返回值，尝试获取
+                try:
+                    result = cursor.fetchall()
+                    if result:
+                        # 将结果格式化为字符串
+                        return '\n'.join(','.join(str(col) if col is not None else 'NULL' for col in row) for row in result)
+                except oracledb.DatabaseError:
+                    # 如果没有结果集，说明是存储过程或无返回值的PL/SQL块
+                    pass
+                # 提交事务
+                conn.commit()
+                return "PL/SQL代码块执行成功"
+
+        return await asyncio.to_thread(db_operation, execsql)
+    except oracledb.DatabaseError as e:
+        print('Error occurred:', e)
+        return str(e)
     except oracledb.DatabaseError as e:
         print('Error occurred:', e)
         return str(e)
@@ -166,6 +213,6 @@ if __name__ == "__main__":
     # Create and run the async event loop
     async def main():
         # print(await list_tables())
-        print(await describe_table('CONTACT'))
+        print(await describe_table('CONCAT'))
 
     asyncio.run(main())
