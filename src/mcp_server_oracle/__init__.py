@@ -54,6 +54,24 @@ async def exec_dml_sql(execsql: str) -> str:
     """
     return await oracle_tools.exec_dml_sql(execsql)
 
+@mcp.tool()
+async def exec_ddl_sql(execsql: str) -> str:
+    """Execute create/drop/alter to the oracle database
+
+    Args:
+        query (string): The sql to execute
+    """
+    return await oracle_tools.exec_ddl_sql(execsql)
+
+@mcp.tool()
+async def exec_pro_sql(execsql: str) -> str:
+    """Execute PL/SQL code blocks including stored procedures, functions and anonymous blocks
+
+    Args:
+        execsql (string): The PL/SQL code block to execute
+    """
+    return await oracle_tools.exec_pro_sql(execsql)
+
 
 def main() -> None:
     mcp.run(transport='stdio')
