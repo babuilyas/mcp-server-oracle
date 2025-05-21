@@ -3,7 +3,7 @@ import sys
 import signal
 from typing import Any
 from mcp.server.fastmcp import FastMCP
-from . import oracle_tools
+import oracle_tools
 from dotenv import load_dotenv
 
 
@@ -14,7 +14,7 @@ load_dotenv()
 mcp = FastMCP("mcp-server-oracle")
 
 oracle_tools.connection_string = os.getenv("ORACLE_CONNECTION_STRING")
-
+oracle_tools.lib_dir = os.getenv("LIB_DIR")
 
 @mcp.tool()
 async def list_tables() -> str:

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "inspector": "npx @modelcontextprotocol/inspector uv run main.py"
+    "inspector": "npx @modelcontextprotocol/inspector uv run d:\\\\repo\\\\mcp_server_oracle" 
   },
   "keywords": [],
   "author": "hdcola",

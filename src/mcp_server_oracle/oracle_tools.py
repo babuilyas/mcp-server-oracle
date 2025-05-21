@@ -2,9 +2,10 @@ import oracledb
 import asyncio
 
 connection_string = ""
+lib_dir = None
 
 # 初始化为 Thin 模式
-oracledb.init_oracle_client(lib_dir=None)
+oracledb.init_oracle_client(lib_dir=lib_dir)
 
 async def list_tables() -> list:
     tables = []
